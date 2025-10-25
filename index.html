@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SySLink</title>
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=56" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <div class="center">
+      <div class="logo">syslink</div>
+      <h1 class="greeting">hi there</h1>
+      <p class="subtitle">im a developer • i make tools • tiny web projects</p>
+
+      <p class="lead">I build small, useful things.</p>
+
+      <div class="copyright">© <span id="year"></span> syslink.dev</div>
+    </div>
+  </main>
+
+  <script>
+    // set year and default theme only (no toggle)
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.documentElement.setAttribute('data-theme','dark');
+  </script>
+</body>
+</html>
