@@ -1,39 +1,70 @@
 :root {
   /* Core Colors (Dark Theme) */
-  --bg: #0e0f11;
-  --panel: #151618;
-  --text: #e9e9e9;
+  --bg: #0a0b0d;
+  --panel: #12141a;
+  --text: #f2f2f2;
   --muted: #9aa0a6;
-  --accent: #19a1ff;
-  --tag-bg: rgba(25, 161, 255, 0.12);
-
+  --accent: #3b82f6;
+  --accent-darker: #2563eb;
+  --tag-bg: rgba(59, 130, 246, 0.15);
+  --panel-hover: #1a1d24;
+  
+  /* Gradients */
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  --glow: 0 0 20px rgba(59, 130, 246, 0.5);
+  --subtle-glow: 0 0 30px rgba(59, 130, 246, 0.15);
+  
   /* Shadows & Depth */
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
-
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3),
+               0 0 20px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3),
+               0 0 30px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4),
+               0 0 50px rgba(0, 0, 0, 0.2);
+  
   /* Effects */
-  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --blur: 12px;
-  --transition: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
   /* Typography */
-  --font-sans: "Inter", "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif;
-  --font-size-base: 15px;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --line-height-tight: 1.4;
   --line-height: 1.65;
+  --tracking-tight: -0.025em;
+  --tracking-wide: 0.025em;
 }
 
 [data-theme='light'] {
   --bg: #ffffff;
-  --panel: #f9f9f9;
-  --text: #1a1a1a;
-  --muted: #666;
-  --accent: #0077ff;
-  --tag-bg: rgba(0, 119, 255, 0.08);
-
-  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+  --panel: #f3f4f6;
+  --panel-hover: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --accent-darker: #1d4ed8;
+  --tag-bg: rgba(37, 99, 235, 0.1);
+  
+  /* Adjust shadows for light theme */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1),
+               0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08),
+               0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08),
+               0 4px 6px rgba(0, 0, 0, 0.04);
+  
+  --glow: 0 0 20px rgba(37, 99, 235, 0.4);
+  --subtle-glow: 0 0 30px rgba(37, 99, 235, 0.1);
 }
 
 /* Reset */
@@ -91,18 +122,40 @@ body.fade-theme {
 }
 
 .avatar {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--accent);
-  box-shadow: 0 0 15px rgba(25, 161, 255, 0.4);
-  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--glow);
+  transition: all var(--transition);
+  filter: contrast(1.05);
+  background: var(--panel);
+  position: relative;
+}
+
+.avatar::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--accent-gradient) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition);
 }
 
 .avatar:hover {
-  transform: scale(1.07) rotate(2deg);
-  box-shadow: 0 0 25px rgba(25, 161, 255, 0.6);
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: var(--glow), var(--subtle-glow);
+  filter: contrast(1.1) brightness(1.05);
+}
+
+.avatar:hover::after {
+  opacity: 1;
 }
 
 .greeting {
@@ -152,112 +205,145 @@ body.fade-theme {
 }
 
 .tag {
-  font-size: 0.78rem;
+  font-size: var(--font-size-xs);
   font-weight: 500;
-  padding: 5px 10px;
+  padding: 4px 8px;
   background: var(--tag-bg);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   color: var(--accent);
-  backdrop-filter: blur(6px);
-  transition: background var(--transition), transform var(--transition), color var(--transition);
+  backdrop-filter: blur(var(--blur));
+  transition: all var(--transition-fast);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  letter-spacing: var(--tracking-wide);
 }
 
 .tag:hover {
-  transform: translateY(-2px) scale(1.05);
-  background: rgba(25, 161, 255, 0.18);
+  transform: translateY(-1px);
+  background: var(--accent);
   color: #fff;
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
 }
 
 /* Projects */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
 }
 
 .project {
   background: var(--panel);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  transition: all var(--transition);
   position: relative;
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-.project::before {
+.project::before,
+.project::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top left, rgba(25, 161, 255, 0.08), transparent 70%);
-  pointer-events: none;
   transition: opacity var(--transition);
   opacity: 0;
+  pointer-events: none;
 }
 
-.project:hover::before {
-  opacity: 1;
+.project::before {
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(59, 130, 246, 0.06),
+    transparent 40%
+  );
+}
+
+.project::after {
+  background: linear-gradient(
+    to bottom right,
+    rgba(59, 130, 246, 0.1),
+    transparent 50%
+  );
 }
 
 .project:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-lg), var(--subtle-glow);
+  background: var(--panel-hover);
+}
+
+.project:hover::before,
+.project:hover::after {
+  opacity: 1;
 }
 
 .project img {
   width: 100%;
-  height: 100px;
+  height: 120px;
   object-fit: cover;
   display: block;
-  filter: brightness(0.92);
-  transition: filter var(--transition);
+  filter: brightness(0.95) contrast(1.1);
+  transition: all var(--transition);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .project:hover img {
-  filter: brightness(1);
+  filter: brightness(1) contrast(1.05);
+  transform: scale(1.02);
 }
 
 .project-info {
-  padding: 16px 18px;
+  padding: 20px;
 }
 
 .project-info h3 {
-  font-size: 1rem;
-  margin-bottom: 6px;
+  font-size: var(--font-size-lg);
+  margin-bottom: 8px;
   color: var(--text);
   font-weight: 600;
+  letter-spacing: var(--tracking-tight);
 }
 
 .project-info p {
-  font-size: 0.85rem;
+  font-size: var(--font-size-sm);
   color: var(--muted);
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  line-height: var(--line-height-tight);
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .project-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  background: var(--accent);
+  padding: 10px 16px;
+  background: var(--accent-gradient);
   color: #fff;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
   font-weight: 500;
+  letter-spacing: 0.01em;
   transition: all var(--transition);
   box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  justify-content: center;
 }
 
 .project-button:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  background: #1aa7ff;
+  box-shadow: var(--shadow-md), var(--glow);
+  background: var(--accent);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .project-button:hover::after {
@@ -265,13 +351,15 @@ body.fade-theme {
 }
 
 .project-button svg {
-  width: 14px;
-  height: 14px;
-  transition: transform var(--transition);
+  width: 16px;
+  height: 16px;
+  transition: all var(--transition-fast);
+  opacity: 0.9;
 }
 
 .project-button:hover svg {
   transform: translate(2px, -2px);
+  opacity: 1;
 }
 
 /* Footer */
