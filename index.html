@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>syslink</title>
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=56" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <div class="center">
+      <header class="header">
+        <img class="avatar" src="https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=56" alt="syslink" />
+        <div>
+          <h1 class="greeting">hi there</h1>
+          <p class="subtitle">developer • systems • tools</p>
+        </div>
+      </header>
+
+      <div class="content-grid">
+        <div class="col">
+          <div class="section">
+            <h2>about</h2>
+            <p id="bio"></p>
+          </div>
+          
+          <div class="section">
+            <h2>skills</h2>
+            <div id="skills" class="tags"></div>
+          </div>
+
+          <div class="section">
+            <h2>interests</h2>
+            <div id="interests" class="tags"></div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="section projects">
+            <h2>projects</h2>
+            <div id="projects" class="project-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">© <span id="year"></span> syslink.dev</div>
+    </div>
+  </main>
+
+  <script>
+    // Set year and theme
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.documentElement.setAttribute('data-theme','dark');
+
+    // Load and render data
+    fetch('data.json')
+      .then(res => res.json())
+      .then(data => {
+        // Set bio
+        document.getElementById('bio').textContent = data.profile.bio;
+
+        // Render skills
+        document.getElementById('skills').innerHTML = data.profile.skills
+          .map(skill => `<span class="tag">${skill}</span>`)
+          .join('');
+
+        // Render interests
+        document.getElementById('interests').innerHTML = data.profile.interests
+          .map(interest => `<span class="tag">${interest}</span>`)
+          .join('');
+
+        // Render projects
+        document.getElementById('projects').innerHTML = data.projects
+          .map(p => `
+            <div class="project">
+              <img src="${p.image}" alt="${p.title}" />
+              <div class="project-info">
+                <h3>${p.title}</h3>
+                <p>${p.description}</p>
+                <div class="project-tags">
+                  ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                </div>
+                <a href="${p.url}" target="_blank" rel="noopener" class="project-button">
+                  <span>View Project</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          `).join('');
+      });
+  </script>
+</body>
+</html>
+
+  <script>
+    // set year and default theme only (no toggle)
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.documentElement.setAttribute('data-theme','dark');
+  </script>
+</body>
+</html>
