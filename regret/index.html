@@ -153,17 +153,20 @@
 <body>
   <div class="warning-screen" id="warningScreen">
     <div class="warning-text">
-      The video experience you're about to see is personalized. Please do not share your screen with anyone while watching.<br><br>      Thank you.
+      The video experience you're about to see is personalized. Please do not share your screen with anyone while watching.<br><br>
+      <strong style="color: #ff4444;">⚠️ This is a joke, don't take it seriously! ⚠️</strong><br><br>
+      Thank you.
     </div>
     <button class="start-button" id="startButton">Click to Start</button>
   </div>
 
   <div class="experience-screen" id="experienceScreen">
     <video class="background-video" id="backgroundVideo" autoplay muted loop>
-      <source src="ralsei.mp4" type="video/mp4">
+      <source src="./ralsei.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
     <div class="content-container" id="contentContainer">
-      <img src="animegirl.gif" alt="" class="anime-overlay" id="animeOverlay">
+      <img src="./animegirl.gif" alt="" class="anime-overlay" id="animeOverlay">
       <div class="info-panel" id="infoPanel">
         <div class="mohehe-text" id="moheheText"></div>
         <div class="typing-text" id="typingText"></div>
@@ -172,7 +175,8 @@
   </div>
 
   <audio id="backgroundMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="./music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
   </audio>
 
   <script>
