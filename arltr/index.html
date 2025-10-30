@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARLTR</title>
+  <link rel="icon" href="https://arltr.syslink.dev/favicon.png" type="image/png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    iframe {
+      width: 100vw;
+      height: calc(100vh - 30px);
+      border: none;
+    }
+    
+    .note {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 8px 12px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 12px;
+      text-align: center;
+      z-index: 1000;
+    }
+    
+    .note a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    
+    .note a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <iframe src="https://arltr.syslink.dev" frameborder="0" allowfullscreen></iframe>
+  <div class="note">
+    This is an iframe to the website. Visit the original at <a href="https://arltr.syslink.dev" target="_blank">https://arltr.syslink.dev</a>
+  </div>
+</body>
+</html>

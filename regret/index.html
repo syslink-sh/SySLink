@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A fun interactive experience with cute anime characters! Totally harmless and wholesome content for entertainment purposes only.">
+  <meta name="keywords" content="anime, cute, fun, interactive, wholesome, entertainment, kawaii, funny">
+  <meta name="author" content="SySLink">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cute Anime Experience 🌸">
+  <meta property="og:description" content="Just a totally innocent and fun interactive page with cute anime characters! Nothing suspicious here at all~">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/FFB6C1/FF69B4?text=Kawaii+Fun+Time!">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cute Anime Experience 🌸">
+  <meta name="twitter:description" content="Totally wholesome anime fun time! Click to see cute characters~">
+  
+  <title>Kawaii Fun Time! 🌸✨ | Totally Innocent Anime Experience</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(45deg, #FFB6C1, #FFC0CB, #DDA0DD, #E6E6FA);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .warning-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .warning-text {
+      font-size: 24px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .start-button {
+      background: linear-gradient(45deg, #FF69B4, #FFB6C1);
+      color: #fff;
+      border: 3px solid #FF1493;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .start-button:hover {
+      background: linear-gradient(45deg, #FF1493, #FF69B4);
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+    }
+
+    .experience-screen {
+      display: none;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .content-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 40px;
+      transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    .content-container.centered {
+      justify-content: center;
+    }
+
+    .anime-overlay {
+      max-width: 400px;
+      max-height: 80%;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateX(0);
+    }
+
+    .anime-overlay.moved-out {
+      transform: translateX(-150vw) scale(0.5);
+      opacity: 0.3;
+    }
+
+    .info-panel {
+      background: rgba(0, 0, 0, 0.9);
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      line-height: 1.8;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .info-panel.visible {
+      opacity: 1;
+    }
+
+    .mohehe-text {
+      color: #ff0000;
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    .typing-text {
+      color: #00ff00;
+    }
+
+    .cursor {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="warning-screen" id="warningScreen">
+    <div class="warning-text">
+      🌸 Welcome to our super cute anime experience! 🌸<br><br>
+      This is a totally wholesome and fun interactive page featuring adorable anime characters!<br><br>
+      <small style="color: #ff69b4;">💕 Just for entertainment! Super kawaii and innocent content ahead~ 💕</small><br><br>
+      <strong style="color: #ffb6c1;">⚠️ This is just a silly joke page, don't take it seriously! UwU ⚠️</strong><br><br>
+      Click below to start the wholesome fun time!
+    </div>
+    <button class="start-button" id="startButton">🌸 Start Kawaii Time! 🌸</button>
+  </div>
+
+  <div class="experience-screen" id="experienceScreen">
+    <video class="background-video" id="backgroundVideo" autoplay muted loop>
+      <source src="ralsei.mp4" type="video/mp4">
+    </video>
+    <div class="content-container" id="contentContainer">
+      <img src="animegirl.gif" alt="" class="anime-overlay" id="animeOverlay">
+      <div class="info-panel" id="infoPanel">
+        <div class="mohehe-text" id="moheheText"></div>
+        <div class="typing-text" id="typingText"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="backgroundMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const warningScreen = document.getElementById('warningScreen');
+    const experienceScreen = document.getElementById('experienceScreen');
+    const startButton = document.getElementById('startButton');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const backgroundVideo = document.getElementById('backgroundVideo');
+    const contentContainer = document.getElementById('contentContainer');
+    const animeOverlay = document.getElementById('animeOverlay');
+    const infoPanel = document.getElementById('infoPanel');
+    const moheheText = document.getElementById('moheheText');
+    const typingText = document.getElementById('typingText');
+
+    // Get user information from real APIs
+    async function getUserInfoLines() {
+      let lines = [];
+      
+      try {
+        // Get IP and location info from ipapi.co
+        const ipResponse = await fetch('https://ipapi.co/json/');
+        const ipData = await ipResponse.json();
+        
+        lines.push(`IP Address: ${ipData.ip || 'Unknown'}`);
+        lines.push(`Country: ${ipData.country_name || 'Unknown'}`);
+        lines.push(`Region: ${ipData.region || 'Unknown'}`);
+        lines.push(`City: ${ipData.city || 'Unknown'}`);
+        lines.push(`Full Location: ${ipData.city || 'Unknown'}, ${ipData.region || 'Unknown'}, ${ipData.country_name || 'Unknown'}`);
+        lines.push(`Latitude: ${ipData.latitude || 'Unknown'}`);
+        lines.push(`Longitude: ${ipData.longitude || 'Unknown'}`);
+        lines.push(`Timezone: ${ipData.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone}`);
+        lines.push(`ISP: ${ipData.org || 'Unknown'}`);
+        lines.push(`Postal Code: ${ipData.postal || 'Unknown'}`);
+        lines.push(`Currency: ${ipData.currency || 'Unknown'}`);
+        lines.push(`Languages: ${ipData.languages || 'Unknown'}`);
+      } catch (error) {
+        // Fallback if IP API fails
+        lines.push(`IP Address: Unable to fetch`);
+        lines.push(`Location: API Error - ${error.message}`);
+      }
+      
+      lines.push('');
+      lines.push(`Current Time: ${new Date().toLocaleString()}`);
+      lines.push(`UTC Time: ${new Date().toISOString()}`);
+      lines.push(`Unix Timestamp: ${Date.now()}`);
+      lines.push('');
+      
+      // Browser and device information
+      lines.push(`User Agent: ${navigator.userAgent}`);
+      lines.push(`Platform: ${navigator.platform}`);
+      lines.push(`Language: ${navigator.language}`);
+      lines.push(`Languages: ${navigator.languages.join(', ')}`);
+      lines.push(`Cookies Enabled: ${navigator.cookieEnabled}`);
+      lines.push(`Online Status: ${navigator.onLine}`);
+      lines.push(`Do Not Track: ${navigator.doNotTrack || 'Not set'}`);
+      lines.push('');
+      
+      // Screen and display info
+      lines.push(`Screen Resolution: ${screen.width}x${screen.height}`);
+      lines.push(`Screen Color Depth: ${screen.colorDepth} bits`);
+      lines.push(`Pixel Ratio: ${window.devicePixelRatio || 1}`);
+      lines.push(`Available Screen: ${screen.availWidth}x${screen.availHeight}`);
+      lines.push(`Window Size: ${window.innerWidth}x${window.innerHeight}`);
+      lines.push(`Viewport: ${window.visualViewport?.width || window.innerWidth}x${window.visualViewport?.height || window.innerHeight}`);
+      lines.push('');
+      
+      // Hardware information
+      if (navigator.deviceMemory) {
+        lines.push(`Device Memory: ${navigator.deviceMemory} GB`);
+      }
+      lines.push(`Hardware Concurrency: ${navigator.hardwareConcurrency} cores`);
+      
+      // Network information
+      if (navigator.connection) {
+        lines.push(`Connection Type: ${navigator.connection.effectiveType || 'Unknown'}`);
+        lines.push(`Connection Speed: ${navigator.connection.downlink || 'Unknown'} Mbps`);
+        lines.push(`RTT: ${navigator.connection.rtt || 'Unknown'} ms`);
+        lines.push(`Data Saver: ${navigator.connection.saveData || false}`);
+      }
+      lines.push('');
+      
+      // Try to get battery info
+      try {
+        if (navigator.getBattery) {
+          const battery = await navigator.getBattery();
+          lines.push(`Battery Level: ${Math.round(battery.level * 100)}%`);
+          lines.push(`Battery Charging: ${battery.charging}`);
+          if (battery.chargingTime !== Infinity) {
+            lines.push(`Charging Time: ${Math.round(battery.chargingTime / 60)} minutes`);
+          }
+          if (battery.dischargingTime !== Infinity) {
+            lines.push(`Discharging Time: ${Math.round(battery.dischargingTime / 60)} minutes`);
+          }
+        }
+      } catch (e) {
+        lines.push(`Battery: Access denied or not supported`);
+      }
+      lines.push('');
+      
+      // Try to get media devices
+      try {
+        if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const cameras = devices.filter(d => d.kind === 'videoinput').length;
+          const microphones = devices.filter(d => d.kind === 'audioinput').length;
+          const speakers = devices.filter(d => d.kind === 'audiooutput').length;
+          lines.push(`Cameras: ${cameras} detected`);
+          lines.push(`Microphones: ${microphones} detected`);
+          lines.push(`Audio Outputs: ${speakers} detected`);
+        }
+      } catch (e) {
+        lines.push(`Media Devices: Access denied`);
+      }
+      lines.push('');
+      
+      // Feature detection
+      lines.push(`Local Storage: ${typeof(Storage) !== "undefined" && !!localStorage}`);
+      lines.push(`Session Storage: ${typeof(Storage) !== "undefined" && !!sessionStorage}`);
+      lines.push(`IndexedDB: ${!!window.indexedDB}`);
+      lines.push(`WebGL: ${!!window.WebGLRenderingContext}`);
+      lines.push(`WebGL2: ${!!window.WebGL2RenderingContext}`);
+      lines.push(`Touch Support: ${!!('ontouchstart' in window)}`);
+      lines.push(`Geolocation API: ${!!navigator.geolocation}`);
+      lines.push(`WebRTC: ${!!window.RTCPeerConnection}`);
+      lines.push(`Service Worker: ${!!navigator.serviceWorker}`);
+      lines.push(`Push Manager: ${!!window.PushManager}`);
+      lines.push(`Notifications: ${!!window.Notification}`);
+      lines.push(`Web Workers: ${!!window.Worker}`);
+      lines.push(`WebAssembly: ${!!window.WebAssembly}`);
+      lines.push('');
+      
+      // Document and page info
+      lines.push(`Referrer: ${document.referrer || 'Direct access'}`);
+      lines.push(`Document Title: ${document.title}`);
+      lines.push(`Document URL: ${window.location.href}`);
+      lines.push(`Document Domain: ${document.domain}`);
+      lines.push(`Document Protocol: ${window.location.protocol}`);
+      lines.push(`History Length: ${history.length}`);
+      lines.push('');
+      
+      // Additional browser info
+      lines.push(`Java Enabled: ${navigator.javaEnabled()}`);
+      lines.push(`PDF Viewer: ${navigator.pdfViewerEnabled || 'Unknown'}`);
+      lines.push(`WebDriver: ${navigator.webdriver || false}`);
+      lines.push(`Max Touch Points: ${navigator.maxTouchPoints || 0}`);
+      lines.push('');
+      
+      // Try to get additional location info using a different API as fallback
+      try {
+        const response2 = await fetch('https://api.ipify.org?format=json');
+        const data2 = await response2.json();
+        lines.push(`IP Verification: ${data2.ip}`);
+      } catch (e) {
+        lines.push(`IP Verification: Failed`);
+      }
+      
+      lines.push('');
+      lines.push(`Data Collection Completed: ${new Date().toISOString()}`);
+      lines.push(`Session ID: ${Math.random().toString(36).substr(2, 9)}`);
+      
+      return lines;
+    }
+
+    // Typing animation for single text - fixed version
+    function typeText(text, element, speed = 50) {
+      return new Promise((resolve) => {
+        let index = 0;
+        element.innerHTML = '';
+        
+        function type() {
+          if (index < text.length) {
+            element.innerHTML = text.substring(0, index + 1) + '<span class="cursor">_</span>';
+            index++;
+            setTimeout(type, speed);
+          } else {
+            element.innerHTML = text;
+            resolve();
+          }
+        }
+        
+        type();
+      });
+    }
+
+    // Typing animation for lines - fixed version
+    function typeLines(lines, element, speed = 30) {
+      return new Promise(async (resolve) => {
+        element.innerHTML = '';
+        let currentContent = '';
+        
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (line === '') {
+            currentContent += '<br>';
+            element.innerHTML = currentContent;
+            await new Promise(r => setTimeout(r, 200));
+          } else {
+            // Type character by character for current line
+            for (let j = 0; j < line.length; j++) {
+              currentContent += line.charAt(j);
+              element.innerHTML = currentContent + '<span class="cursor">_</span>';
+              await new Promise(r => setTimeout(r, speed));
+            }
+            // Remove cursor and add line break
+            currentContent += '<br>';
+            element.innerHTML = currentContent;
+            await new Promise(r => setTimeout(r, 100));
+          }
+        }
+        
+        // Add final cursor
+        element.innerHTML = currentContent + '<span class="cursor">_</span>';
+        resolve();
+      });
+    }
+
+    startButton.addEventListener('click', async function() {
+      // Hide warning screen
+      warningScreen.style.display = 'none';
+      
+      // Show experience screen
+      experienceScreen.style.display = 'block';
+      
+      // Start music and video
+      backgroundMusic.play().catch(e => {
+        console.log('Audio play failed:', e);
+      });
+      
+      backgroundVideo.play().catch(e => {
+        console.log('Video play failed:', e);
+      });
+
+      // After 5 seconds, start the animation sequence
+      setTimeout(async () => {
+        // 1. Move anime girl out of screen
+        animeOverlay.classList.add('moved-out');
+        
+        // 2. Show info panel in center after gif starts moving
+        setTimeout(() => {
+          contentContainer.classList.add('centered');
+          infoPanel.classList.add('visible');
+        }, 500);
+        
+        // 3. Type "Mohehehe" in red after panel appears
+        setTimeout(async () => {
+          await typeText('Mohehehe', moheheText, 100);
+          
+          // 4. Start typing user info after mohehe is done
+          setTimeout(async () => {
+            const userInfoLines = await getUserInfoLines();
+            await typeLines(userInfoLines, typingText, 30);
+          }, 1000);
+          
+        }, 1500);
+        
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
