@@ -14,7 +14,7 @@
   <meta property="og:url" content="https://syslink.dev/" />
   <meta property="og:title" content="SySLink - Developer • Systems • Tools" />
   <meta property="og:description" content="Developer and Systems Engineer building websites, Discord bots, and tools. Skilled in Python, JavaScript, C++, and more." />
-  <meta property="og:image" content="https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=512" />
+  <meta property="og:image" content="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=512&quality=lossless" />
   <meta property="og:site_name" content="SySLink" />
   
   <!-- Twitter -->
@@ -22,13 +22,13 @@
   <meta name="twitter:url" content="https://syslink.dev/" />
   <meta name="twitter:title" content="SySLink - Developer • Systems • Tools" />
   <meta name="twitter:description" content="Developer and Systems Engineer building websites, Discord bots, and tools." />
-  <meta name="twitter:image" content="https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=512" />
+  <meta name="twitter:image" content="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=512&quality=lossless" />
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://syslink.dev/" />
   
   <title>SySLink - Developer • Systems • Tools</title>
-  <link rel="icon" href="https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=56" />
+  <link rel="icon" href="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=160&quality=lossless" />
   <link rel="stylesheet" href="styles.css" />
   
   <!-- JSON-LD Structured Data for Google -->
@@ -86,9 +86,9 @@
     </svg>
   </button>
   <main class="container">
-    <div class="center">
+    <div class="main-content">
       <header class="header">
-        <img class="avatar" src="https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=56" alt="syslink" />
+        <img class="avatar" src="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=160&quality=lossless" alt="syslink" />
         <div>
           <h1 class="greeting">hi there</h1>
           <p class="subtitle">developer • systems • tools</p>
@@ -127,6 +127,24 @@
 
       <div class="copyright">© <span id="year"></span> syslink.dev</div>
     </div>
+
+    <aside class="sidebar" id="discord-sidebar">
+      <div class="sidebar-content">
+        <div class="section">
+          <h2>discord</h2>
+          <p><a href="/discord" target="_blank" rel="noopener noreferrer">Join</a> our community!</p>
+          <div class="discord-widget">
+            <iframe src="https://discord.com/widget?id=1441141341789749350&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Discord sidebar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
   </main>
 
   <button id="scroll-top" class="scroll-top" aria-label="Scroll to top">
@@ -193,6 +211,32 @@
 
     // Set year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Sidebar toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('discord-sidebar');
+    const savedSidebarState = localStorage.getItem('sidebar-hidden');
+    
+    // Set initial sidebar state
+    if (savedSidebarState === 'true') {
+      sidebar.classList.add('hidden');
+      sidebarToggle.classList.add('active');
+    }
+    
+    // Sidebar toggle handler
+    sidebarToggle.addEventListener('click', () => {
+      const isHidden = sidebar.classList.contains('hidden');
+      
+      if (isHidden) {
+        sidebar.classList.remove('hidden');
+        sidebarToggle.classList.remove('active');
+        localStorage.setItem('sidebar-hidden', 'false');
+      } else {
+        sidebar.classList.add('hidden');
+        sidebarToggle.classList.add('active');
+        localStorage.setItem('sidebar-hidden', 'true');
+      }
+    });
 
     // Add loading animation
     setTimeout(() => {
