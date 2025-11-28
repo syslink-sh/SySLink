@@ -1,255 +1,124 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="mocha">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="description" content="SySLink - Developer, Systems Engineer, and Tool Creator specializing in Python, C, C++, Java, JavaScript, HTML, CSS, and Lua. Building websites, Discord bots, and everything in between." />
-  <meta name="keywords" content="developer, systems, tools, web development, python, javascript, discord bots, linux, programming, software engineer, full stack developer" />
-  <meta name="author" content="SySLink" />
-  <meta name="robots" content="index, follow" />
-  <meta name="googlebot" content="index, follow" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <!-- open graph and facebook stuff -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://syslink.dev/" />
-  <meta property="og:title" content="SySLink - Developer • Systems • Tools" />
-  <meta property="og:description" content="Developer and Systems Engineer building websites, Discord bots, and tools. Skilled in Python, JavaScript, C++, and more." />
-  <meta property="og:image" content="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=512&quality=lossless" />
-  <meta property="og:site_name" content="SySLink" />
-  
-  <!-- twitter stuff -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://syslink.dev/" />
-  <meta name="twitter:title" content="SySLink - Developer • Systems • Tools" />
-  <meta name="twitter:description" content="Developer and Systems Engineer building websites, Discord bots, and tools." />
-  <meta name="twitter:image" content="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=512&quality=lossless" />
-  
-  <!-- canonical url whatever -->
-  <link rel="canonical" href="https://syslink.dev/" />
-  
-  <title>SySLink - Developer • Systems • Tools</title>
-  <link rel="icon" href="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=160&quality=lossless" />
-  
-  <!-- google material design fonts and stuff -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Material+Icons&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="styles.css" />
-  
-  <!-- json-ld stuff for google -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "SySLink",
-    "url": "https://syslink.dev",
-    "image": "https://cdn.discordapp.com/avatars/1423516175161098371/8648153556ab4309289f7a4a1d1b01d7.webp?size=512",
-    "jobTitle": "Developer & Systems Engineer",
-    "description": "I am a developer. I make websites, Discord bots, and everything.",
-    "knowsAbout": ["Python", "C", "C++", "Java", "JavaScript", "HTML", "CSS",  "Web Development", "Discord Bots", "Linux"],
-    "sameAs": [
-      "https://github.com/syslink-sh"
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "SySLink"
-    }
-  }
-  </script>
-  
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "SySLink",
-    "url": "https://syslink.dev",
-    "description": "Personal portfolio and projects showcase",
-    "author": {
-      "@type": "Person",
-      "name": "SySLink"
-    }
-  }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SySLink</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Devicon for Tech Stack -->
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
+
 <body>
-  <div class="scroll-progress"></div>
-  
-  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="5"></circle>
-      <line x1="12" y1="1" x2="12" y2="3"></line>
-      <line x1="12" y1="21" x2="12" y2="23"></line>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-      <line x1="1" y1="12" x2="3" y2="12"></line>
-      <line x1="21" y1="12" x2="23" y2="12"></line>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-    </svg>
-  </button>
-  <main class="container">
-    <div class="main-content">
-      <header class="header">
-        <img class="avatar" src="https://cdn.discordapp.com/icons/1441141341789749350/525e191c0ef4f2d99b2277d3b180f575.png?size=160&quality=lossless" alt="syslink" />
-        <div>
-          <h1 class="greeting">hi there</h1>
-          <p class="subtitle">developer • systems • tools</p>
-        </div>
-      </header>
+    <div class="background-animation"></div>
 
-      <div class="content-section">
-        <div class="section">
-          <h2>about</h2>
-          <p id="bio">I am a developer. I make websites, Discord bots, and everything.</p>
-        </div>
-        
-        <div class="section">
-          <h2>skills</h2>
-          <div id="skills" class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">C</span>
-            <span class="tag">C++</span>
-            <span class="tag">Java</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">Lua</span>
-          </div>
+    <main class="bento-grid">
+        <!-- Profile -->
+        <div class="card profile-card" id="discord-card">
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=syslink-sh" alt="Avatar" class="avatar"
+                        id="discord-avatar">
+                    <div class="status-indicator" id="discord-status"></div>
+                </div>
+                <div class="profile-info">
+                    <h1 id="discord-username">syslink-sh</h1>
+                    <p class="tagline" id="discord-activity">Full‑stack developer</p>
+                </div>
+            </div>
         </div>
 
-        <div class="section">
-          <h2>interests</h2>
-          <div id="interests" class="tags">
-            <span class="tag">Websites</span>
-            <span class="tag">Bots</span>
-            <span class="tag">Linux</span>
-          </div>
+        <!-- Bio -->
+        <div class="card bio-card">
+            <h2>About Me</h2>
+            <p>I'm a full‑stack developer building reliable backend and frontend systems. I work with Python, C/C++, Java, JavaScript, HTML/CSS and Lua. Available for contributing — contact me on Discord.</p>
         </div>
-      </div>
 
-      <div class="copyright">© <span id="year"></span> syslink.dev</div>
-    </div>
-
-    <aside class="sidebar" id="discord-sidebar">
-      <div class="sidebar-content">
-        <div class="section">
-          <h2>discord</h2>
-          <p><a href="/discord" target="_blank" rel="noopener noreferrer">Join</a> our community!</p>
-          <div class="discord-widget">
-            <iframe src="https://discord.com/widget?id=1441141341789749350&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-          </div>
+        <!-- Socials -->
+        <div class="card socials-card">
+            <h2>Connect</h2>
+            <div class="social-links">
+                <a href="https://discord.com/users/1423516175161098371" target="_blank" class="social-btn discord"
+                    title="Discord">
+                    <i class="fa-brands fa-discord"></i>
+                    <span>Discord</span>
+                </a>
+                <a href="https://github.com/syslink-sh" target="_blank" class="social-btn github" title="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+            </div>
         </div>
-      </div>
-    </aside>
 
-    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Discord sidebar">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 18l6-6-6-6"/>
-      </svg>
-    </button>
-  </main>
+        <!-- Skills -->
+        <div class="card skills-card">
+            <h2>Tech Stack</h2>
+            <div class="skills-grid">
+                <div class="skill-item"><i class="devicon-python-plain"></i> Python</div>
+                <div class="skill-item"><i class="devicon-c-plain"></i> C</div>
+                <div class="skill-item"><i class="devicon-cplusplus-plain"></i> C++</div>
+                <div class="skill-item"><i class="devicon-java-plain"></i> Java</div>
+                <div class="skill-item"><i class="devicon-javascript-plain"></i> JavaScript</div>
+                <div class="skill-item"><i class="devicon-html5-plain"></i> HTML</div>
+                <div class="skill-item"><i class="devicon-css3-plain"></i> CSS</div>
+                <div class="skill-item"><i class="devicon-lua-plain"></i> Lua</div>
+            </div>
+        </div>
 
-  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-  </button>
+        <!-- Timeline -->
+        <div class="card timeline-card">
+            <h2>Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="date">Future</div>
+                    <div class="content">
+                        <h3>Soon to be done</h3>
+                        <p>More updates coming soon...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <script>
-    // Scroll progress and scroll-to-top
-    const scrollProgress = document.querySelector('.scroll-progress');
-    const scrollTopBtn = document.getElementById('scroll-top');
-    
-    window.addEventListener('scroll', () => {
-      // Update scroll progress
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      scrollProgress.style.width = scrolled + '%';
-      
-      // Toggle scroll-to-top button
-      if (winScroll > 300) {
-        scrollTopBtn.classList.add('visible');
-      } else {
-        scrollTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+        <!-- Resume -->
+        <a href="http://youtube.com/watch?v=XqZsoesa55w" target="_blank" class="card bigrat-card">
+            <div class="bigrat-content">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Resume</span>
+            </div>
+        </a>
 
+        <!-- Theme -->
+        <div class="card toggle-card" id="theme-toggle">
+            <i class="fa-solid fa-sun sun-icon"></i>
+            <i class="fa-solid fa-moon moon-icon"></i>
+        </div>
 
+        <!-- Time -->
+        <div class="card time-card">
+            <div class="time-display" id="local-time">00:00</div>
+            <div class="date-display" id="local-date">Jan 01</div>
+        </div>
+    </main>
 
-    // Theme management
-    const themeToggle = document.getElementById('theme-toggle');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('theme');
-    const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-    
-    // Set initial theme
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    
-    // Theme toggle handler
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      // Add transition class
-      document.body.classList.add('fade-theme');
-      
-      // Set new theme
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // Remove transition class after animation
-      setTimeout(() => {
-        document.body.classList.remove('fade-theme');
-      }, 600);
-    });
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>Original source:</span>
+            <a href="https://github.com/tanqyry/About_Me" target="_blank" rel="noopener noreferrer">github.com/tanqyry/About_Me</a>
+            <span class="sep">•</span>
+            <span>Based on code by</span>
+            <a href="https://github.com/tanqyry" target="_blank" rel="noopener noreferrer">tanqyry</a>
+        </div>
+    </footer>
 
-    // Set year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Sidebar toggle
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebar = document.getElementById('discord-sidebar');
-    const savedSidebarState = localStorage.getItem('sidebar-hidden');
-    
-    // Set initial sidebar state
-    if (savedSidebarState === 'true') {
-      sidebar.classList.add('hidden');
-      sidebarToggle.classList.add('active');
-    }
-    
-    // Sidebar toggle handler
-    sidebarToggle.addEventListener('click', () => {
-      const isHidden = sidebar.classList.contains('hidden');
-      
-      if (isHidden) {
-        sidebar.classList.remove('hidden');
-        sidebarToggle.classList.remove('active');
-        localStorage.setItem('sidebar-hidden', 'false');
-      } else {
-        sidebar.classList.add('hidden');
-        sidebarToggle.classList.add('active');
-        localStorage.setItem('sidebar-hidden', 'true');
-      }
-    });
-
-    // Add loading animation
-    setTimeout(() => {
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.add('content-loaded');
-      });
-    }, 300);
-  </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
