@@ -1,4 +1,3 @@
-/* Catppuccin Mocha Theme Variables */
 :root[data-theme="mocha"] {
     --base: #1e1e2e;
     --mantle: #181825;
@@ -26,7 +25,6 @@
     --rosewater: #f5e0dc;
 }
 
-/* Catppuccin Latte Theme Variables (Light Mode) */
 :root[data-theme="latte"] {
     --base: #eff1f5;
     --mantle: #e6e9ef;
@@ -74,7 +72,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Background Animation */
 .background-animation {
     position: fixed;
     top: 0;
@@ -86,7 +83,6 @@ body {
     opacity: 0.5;
 }
 
-/* Bento Grid Layout */
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -95,10 +91,9 @@ body {
     max-width: 1200px;
     width: 100%;
 
-    flex: 1 1 auto; /* allow main grid to grow so footer rests at bottom */
+    flex: 1 1 auto;
 }
 
-/* Card Styling */
 .card {
     background-color: var(--mantle);
     border: 1px solid var(--surface0);
@@ -131,9 +126,6 @@ p {
     line-height: 1.6;
 }
 
-/* Specific Card Layouts */
-
-/* Profile Card */
 .profile-card {
     grid-column: span 2;
     grid-row: span 2;
@@ -167,7 +159,6 @@ p {
     border-radius: 50%;
     border: 3px solid var(--mantle);
     background-color: var(--overlay0);
-    /* Default offline/unknown */
 }
 
 .status-indicator.online {
@@ -191,13 +182,11 @@ p {
     color: var(--subtext1);
 }
 
-/* Bio Card */
 .bio-card {
     grid-column: span 2;
     grid-row: span 1;
 }
 
-/* Socials Card */
 .socials-card {
     grid-column: span 1;
     grid-row: span 2;
@@ -244,7 +233,6 @@ p {
     color: #1DB954;
 }
 
-/* Skills Card */
 .skills-card {
     grid-column: span 1;
     grid-row: span 2;
@@ -271,7 +259,6 @@ p {
     color: var(--yellow);
 }
 
-/* Timeline Card */
 .timeline-card {
     grid-column: span 2;
     grid-row: span 2;
@@ -334,7 +321,6 @@ p {
     font-size: 1.2rem;
 }
 
-/* Theme Toggle Card */
 .toggle-card {
     grid-column: span 1;
     grid-row: span 1;
@@ -359,7 +345,6 @@ p {
     color: var(--blue);
 }
 
-/* Time Card */
 .time-card {
     grid-column: span 1;
     grid-row: span 1;
@@ -381,7 +366,6 @@ p {
     color: var(--subtext0);
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .bento-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -416,11 +400,10 @@ p {
     }
 }
 
-/* Footer */
 .site-footer {
     margin-top: 1.5rem;
     display: flex;
-    justify-content: center; /* center footer horizontally */
+    justify-content: center;
     width: 100%;
     padding: 0; /* reset any left padding */
 }
@@ -430,7 +413,7 @@ p {
     display: flex;
     gap: 0.5rem;
     align-items: center;
-    max-width: 1200px; /* match main width */
+    max-width: 1200px;
     width: 100%;
     padding: 0.8rem 1rem; /* match card padding style */
     justify-content: center; /* center content inside container */

@@ -1,4 +1,3 @@
-// theme
 const themeToggle = document.getElementById('theme-toggle');
 const htmlEl = document.documentElement;
 const savedTheme = localStorage.getItem('theme') || 'mocha';
@@ -10,7 +9,6 @@ if (themeToggle) themeToggle.addEventListener('click', () => {
     localStorage.setItem('theme', next);
 });
 
-// time (Asia/Riyadh)
 const timeDisplay = document.getElementById('local-time');
 const dateDisplay = document.getElementById('local-date');
 const timeFmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Riyadh', hour: '2-digit', minute: '2-digit', hour12: false });
@@ -20,30 +18,26 @@ function updateTime() {
     if (dateDisplay) dateDisplay.textContent = dateFmt.format(new Date());
 }
 updateTime();
-setInterval(updateTime, 60_000); // update per minute
+setInterval(updateTime, 60_000);
 
 // discord (lanyard) - simple and robust
 const DISCORD_ID = '1423516175161098371';
 const REST_API_URL = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
 let discordState = { discord_user: { username: 'syslink.sh', avatar: null }, discord_status: 'offline', activities: [] };
 
-// cache ui nodes
 const avatarEl = document.getElementById('discord-avatar');
 const usernameEl = document.getElementById('discord-username');
 const statusEl = document.getElementById('discord-status');
 const activityEl = document.getElementById('discord-activity');
 
-// set favicon to given url (replaces existing favicon links)
 function setFavicon(url) {
     try {
-        // remove existing favicons
         document.querySelectorAll('link[rel~="icon"]').forEach(n => n.parentNode && n.parentNode.removeChild(n));
         const link = document.createElement('link');
         link.rel = 'icon';
         link.type = 'image/png';
         link.href = url;
         document.head.appendChild(link);
-        // also add an apple-touch-icon for good measure
         const apple = document.createElement('link');
         apple.rel = 'apple-touch-icon';
         apple.href = url;
@@ -115,7 +109,6 @@ function renderDiscordUI() {
     if (discord_user && discord_user.username && usernameEl) usernameEl.textContent = discord_user.username;
     if (statusEl) statusEl.className = 'status-indicator ' + (discord_status || 'offline');
 
-    // activities: custom -> playing -> fallback
     const custom = (activities || []).find(a => a.type === 4 && a.state);
     const game = (activities || []).find(a => a.type === 0 && a.name);
     if (activityEl) {
@@ -127,7 +120,6 @@ function renderDiscordUI() {
 
 initDiscord();
 
-// parallax - throttle via rAF, cache nodes
 const cards = Array.from(document.querySelectorAll('.card'));
 let raf = null;
 let lastMouse = { x: 0, y: 0 };
