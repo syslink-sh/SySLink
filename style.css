@@ -259,6 +259,74 @@ p {
     color: var(--yellow);
 }
 
+.projects-card {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.project-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--surface0);
+    border-radius: 1rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.project-item:hover {
+    background-color: var(--surface1);
+    transform: translateX(5px);
+}
+
+.project-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--mauve), var(--blue));
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    color: var(--base);
+    flex-shrink: 0;
+}
+
+.project-info {
+    flex: 1;
+}
+
+.project-info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    color: var(--text);
+}
+
+.project-info p {
+    font-size: 0.85rem;
+    color: var(--subtext0);
+    line-height: 1.3;
+}
+
+.project-link-icon {
+    color: var(--overlay0);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.project-item:hover .project-link-icon {
+    color: var(--blue);
+}
+
 .timeline-card {
     grid-column: span 2;
     grid-row: span 2;
