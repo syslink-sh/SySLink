@@ -43,7 +43,7 @@ function setFavicon(url) {
         apple.href = url;
         document.head.appendChild(apple);
     } catch (e) {
-        console.error('Failed to set favicon', e);
+        if (window.SYSLINK_DEBUG) console.error('Failed to set favicon', e);
     }
 }
 
@@ -60,42 +60,51 @@ async function initDiscord() {
             renderDiscordUI();
             connectLanyardWS();
         } else {
-            console.error('Lanyard:', data && data.error);
+            if (window.SYSLINK_DEBUG) console.error('Lanyard:', data && data.error);
             if (activityEl) activityEl.textContent = 'No presence';
             if (statusEl) statusEl.className = 'status-indicator offline';
         }
     } catch (err) {
-        console.error('Fetch error', err);
+        if (window.SYSLINK_DEBUG) console.error('Fetch error', err);
         if (activityEl) activityEl.textContent = 'API Error';
     }
 }
 
 function connectLanyardWS() {
-    if (ws) ws.close();
-    ws = new WebSocket('wss://api.lanyard.rest/socket');
+    try {
+        if (ws) ws.close();
+        if (typeof WebSocket === 'undefined') {
+            if (window.SYSLINK_DEBUG) console.warn('WebSocket not supported in this environment');
+            return;
+        }
 
-    ws.onopen = () => {
-        reconnectMs = 1000;
-        ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
-    };
+        ws = new WebSocket('wss://api.lanyard.rest/socket');
 
-    ws.onmessage = (ev) => {
-        try {
-            const msg = JSON.parse(ev.data);
-            const { t, d } = msg;
-            if (t === 'INIT_STATE' || t === 'PRESENCE_UPDATE') {
-                discordState = { ...discordState, ...d };
-                renderDiscordUI();
-            }
-        } catch (e) { /* ignore bad msg */ }
-    };
+        ws.onopen = () => {
+            reconnectMs = 1000;
+            ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+        };
 
-    ws.onerror = (e) => { console.error('WS error', e); ws.close(); };
+        ws.onmessage = (ev) => {
+            try {
+                const msg = JSON.parse(ev.data);
+                const { t, d } = msg;
+                if (t === 'INIT_STATE' || t === 'PRESENCE_UPDATE') {
+                    discordState = { ...discordState, ...d };
+                    renderDiscordUI();
+                }
+            } catch (e) { /* ignore bad msg */ }
+        };
 
-    ws.onclose = () => {
-        setTimeout(connectLanyardWS, reconnectMs);
-        reconnectMs = Math.min(MAX_RECONNECT, reconnectMs * 2);
-    };
+        ws.onerror = (e) => { if (window.SYSLINK_DEBUG) console.error('WS error', e); ws.close(); };
+
+        ws.onclose = () => {
+            setTimeout(connectLanyardWS, reconnectMs);
+            reconnectMs = Math.min(MAX_RECONNECT, reconnectMs * 2);
+        };
+    } catch (e) {
+        if (window.SYSLINK_DEBUG) console.error('connectLanyardWS failed', e);
+    }
 }
 
 function renderDiscordUI() {
