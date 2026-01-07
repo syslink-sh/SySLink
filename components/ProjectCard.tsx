@@ -1,58 +1,44 @@
 'use client';
 
-interface Repo {
+interface Project {
     id: number;
-    name: string;
+    title: string;
     description: string;
-    html_url: string;
-    homepage: string;
-    archived: boolean;
-    stargazers_count: number;
-    topics: string[];
+    url: string;
+    thumbnail_url?: string;
+    is_archived: boolean;
 }
 
-export default function ProjectCard({ repo, isActive }: { repo: Repo; isActive: boolean }) {
-    const getThumbnail = (name: string) => {
-        const username = process.env.NEXT_PUBLIC_GITHUB_USERNAME || 'syslink-sh';
-        return `https://opengraph.githubassets.com/1/${username}/${name}`;
-    };
-
+export default function ProjectCard({ project }: { project: Project }) {
     return (
-        <div className="card">
-            <div className="card-image" style={{ backgroundColor: '#0a0a0a' }}>
-                <img
-                    src={getThumbnail(repo.name)}
-                    alt={`${repo.name} preview`}
-                    loading="lazy"
-                    onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.onerror = null; // Prevent infinite loop
-                        target.src = `https://placehold.co/600x400/0a0a0a/38bdf8?text=${encodeURIComponent(repo.name)}`;
-                    }}
-                />
-                {!isActive && (
-                    <span className="project-tag"
-                        style={{ backgroundColor: '#444', position: 'absolute', bottom: '10px', right: '10px', color: 'white', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                        archived
-                    </span>
-                )}
-            </div>
-            <div className="card-content">
-                <h3 style={{ marginBottom: '0.5rem' }}>
-                    <a href={repo.homepage || repo.html_url} target="_blank" rel="noopener noreferrer">
-                        {repo.name} {repo.homepage ? '↗' : ''}
-                    </a>
-                </h3>
-                <p className="muted" style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>
-                    {repo.description || 'No description available yet.'}
-                </p>
-                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem' }}>
-                    <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="muted">
-                        GitHub ↗
-                    </a>
-                    {repo.stargazers_count > 0 && (
-                        <span className="muted">★ {repo.stargazers_count}</span>
+        <div className="card" style={{ padding: '1.5rem' }}>
+            {project.thumbnail_url && (
+                <div className="card-image" style={{ marginBottom: '1rem', borderRadius: '8px', overflow: 'hidden' }}>
+                    <img
+                        src={project.thumbnail_url}
+                        alt={project.title}
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                    />
+                </div>
+            )}
+            <div className="card-content" style={{ padding: 0 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
+                    <h3 style={{ margin: 0 }}>
+                        <a href={project.url} target="_blank" rel="noopener noreferrer">
+                            {project.title} ↗
+                        </a>
+                    </h3>
+                    {project.is_archived && (
+                        <span style={{ fontSize: '0.7rem', opacity: 0.5, textTransform: 'uppercase', letterSpacing: '0.05em' }}>archived</span>
                     )}
+                </div>
+                <p className="muted" style={{ fontSize: '0.95rem', marginBottom: '1rem' }}>
+                    {project.description || 'No description available.'}
+                </p>
+                <div style={{ fontSize: '0.85rem' }}>
+                    <a href={project.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>
+                        Visit Project ↗
+                    </a>
                 </div>
             </div>
         </div>

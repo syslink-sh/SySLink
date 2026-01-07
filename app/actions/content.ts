@@ -57,3 +57,32 @@ export async function deleteBlog(id: number) {
     revalidatePath('/blog');
     revalidatePath('/admin/blogs');
 }
+
+// Project Actions
+export async function upsertProject(formData: FormData) {
+    const id = formData.get('id');
+    const title = formData.get('title');
+    const description = formData.get('description');
+    const url = formData.get('url');
+    const thumbnailUrl = formData.get('thumbnail_url');
+    const isArchived = formData.get('is_archived') === 'on';
+
+    if (id) {
+        await query(
+            'UPDATE projects SET title = $1, description = $2, url = $3, thumbnail_url = $4, is_archived = $5 WHERE id = $6',
+            [title, description, url, thumbnailUrl, isArchived, id]
+        );
+    } else {
+        await query(
+            'INSERT INTO projects (title, description, url, thumbnail_url, is_archived) VALUES ($1, $2, $3, $4, $5)',
+            [title, description, url, thumbnailUrl, isArchived]
+        );
+    }
+
+    revalidatePath('/projects');
+}
+
+export async function deleteProject(id: number) {
+    await query('DELETE FROM projects WHERE id = $1', [id]);
+    revalidatePath('/projects');
+}

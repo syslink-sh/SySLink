@@ -15,23 +15,29 @@ export default async function BlogPage() {
         <div>
             <section>
                 <h1 className="title-underline">blog</h1>
-                <div className="blog-list" style={{ marginTop: '2.5rem' }}>
+                <p className="muted" style={{ marginBottom: '3rem', fontSize: '1.1rem' }}>
+                    Thoughts, tutorials, and project updates from my development journey.
+                </p>
+
+                <div className="blog-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                     {blogs.length > 0 ? (
-                        blogs.map((post, index) => (
-                            <Link href={`/blog/${post.slug}`} key={index} className="blog-item" style={{ color: 'inherit', textDecoration: 'none', alignItems: 'center' }}>
+                        blogs.map((post: any, index: number) => (
+                            <Link href={`/blog/${post.slug}`} key={index} className="card" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', gap: '1.5rem', padding: '1.25rem', alignItems: 'center' }}>
                                 {post.thumbnail_url && (
-                                    <div style={{ width: '120px', height: '80px', borderRadius: '8px', overflow: 'hidden', flexShrink: 0, border: '1px solid var(--card-border)' }}>
+                                    <div style={{ width: '100px', height: '65px', borderRadius: '4px', overflow: 'hidden', flexShrink: 0, border: '1px solid var(--card-border)' }}>
                                         <img src={post.thumbnail_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
                                 )}
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '0.25rem' }}>{post.date}</span>
-                                    <span className="blog-title" style={{ color: 'var(--accent)', fontSize: '1.25rem' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                                    <span className="blog-title" style={{ color: 'var(--accent)', fontSize: '1.2rem', fontWeight: 600 }}>
                                         {post.title}
                                     </span>
-                                    <p className="muted" style={{ margin: '0.25rem 0 0 0', fontSize: '0.95rem' }}>
-                                        {post.excerpt}
-                                    </p>
+                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginTop: '0.25rem' }}>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>{post.date}</span>
+                                        <p className="muted" style={{ margin: 0, fontSize: '0.9rem', opacity: 0.8 }}>
+                                            {post.excerpt}
+                                        </p>
+                                    </div>
                                 </div>
                             </Link>
                         ))

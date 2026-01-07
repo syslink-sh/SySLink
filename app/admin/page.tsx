@@ -18,8 +18,12 @@ export default function AdminDashboard() {
                     <h2 style={{ marginTop: 0 }}>Skills</h2>
                     <p className="muted">Manage your coding skills and proficiency levels.</p>
                 </Link>
+                <Link href="/admin/projects" className="card" style={{ padding: '2rem', textAlign: 'center' }}>
+                    <h2 style={{ marginTop: 0 }}>Projects</h2>
+                    <p className="muted">Manage your portfolio projects and case studies.</p>
+                </Link>
                 <Link href="/admin/blogs" className="card" style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h2 style={{ marginTop: 0 }}>Blogs</h2>
+                    <h2 style={{ marginTop: 0 }}>Blog</h2>
                     <p className="muted">Write, edit, and manage your blog posts.</p>
                 </Link>
             </div>

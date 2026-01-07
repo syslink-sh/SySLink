@@ -18,6 +18,14 @@ async function down() {
         await client.query('DROP TABLE IF EXISTS skills;');
         console.log('Table "skills" dropped');
 
+        // Drop Projects table
+        await client.query('DROP TABLE IF EXISTS projects;');
+        console.log('Table "projects" dropped');
+
+        // Drop Sessions table
+        await client.query('DROP TABLE IF EXISTS admin_sessions;');
+        console.log('Table "admin_sessions" dropped');
+
     } catch (err) {
         console.error('Error dropping tables:', err);
     } finally {

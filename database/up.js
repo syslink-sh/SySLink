@@ -34,6 +34,19 @@ async function up() {
     `);
     console.log('Table "blogs" ensured');
 
+    // Create Projects table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS projects (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        description TEXT,
+        url TEXT,
+        thumbnail_url TEXT,
+        is_archived BOOLEAN DEFAULT FALSE
+      );
+    `);
+    console.log('Table "projects" ensured');
+
     // Create Sessions table
     await client.query(`
           CREATE TABLE IF NOT EXISTS admin_sessions (
