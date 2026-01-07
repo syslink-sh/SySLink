@@ -1,4 +1,10 @@
 import ProjectCard from '@/components/ProjectCard';
+import { query } from '@/lib/db';
+
+export const metadata = {
+    title: 'Projects',
+    description: 'A collection of my recent work and open-source contributions.',
+};
 
 interface Repo {
     id: number;

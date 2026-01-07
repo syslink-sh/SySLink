@@ -1,7 +1,7 @@
-export const dynamic = 'force-dynamic';
 import { query } from '@/lib/db';
 import { upsertBlog, deleteBlog } from '@/app/actions/content';
 import Link from 'next/link';
+import BlogEditor from '@/components/BlogEditor';
 
 export default async function AdminBlogsPage() {
     const res = await query('SELECT * FROM blogs ORDER BY id DESC');
@@ -9,113 +9,36 @@ export default async function AdminBlogsPage() {
 
     return (
         <div className="container">
-            <header style={{ marginBottom: '4rem' }}>
-                <Link href="/admin" className="muted">← Back to Dashboard</Link>
-                <h1 className="title-underline" style={{ marginTop: '1rem' }}>Manage Blogs</h1>
+            <header style={{ marginBottom: '4rem', display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+                <div>
+                    <h1 className="title-underline" style={{ marginBottom: '1.5rem' }}>Manage Blogs</h1>
+                    <p className="muted">Craft your stories and manage existing posts.</p>
+                </div>
+                <Link href="/admin" className="nav-item" style={{ fontSize: '0.9rem', border: '1px solid var(--card-border)' }}>
+                    ← Dashboard
+                </Link>
             </header>
 
             <section className="card" style={{ padding: '2rem', marginBottom: '3rem' }}>
-                <h2 style={{ marginTop: 0 }}>Create New Post</h2>
-                <form action={upsertBlog} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '1.5rem' }}>
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Title</label>
-                            <input
-                                name="title"
-                                type="text"
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '0.75rem',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--card-border)',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                                    color: 'white'
-                                }}
-                            />
-                        </div>
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Date</label>
-                            <input
-                                name="date"
-                                type="text"
-                                placeholder="Jan 7, 2026"
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '0.75rem',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--card-border)',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                                    color: 'white'
-                                }}
-                            />
-                        </div>
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Slug</label>
-                            <input
-                                name="slug"
-                                type="text"
-                                placeholder="post-title"
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '0.75rem',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--card-border)',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                                    color: 'white'
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Excerpt</label>
-                        <textarea
-                            name="excerpt"
-                            rows={2}
-                            required
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                borderRadius: '8px',
-                                border: '1px solid var(--card-border)',
-                                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                                color: 'white',
-                                resize: 'none'
-                            }}
-                        />
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Content (One paragraph per line, use **bold**)</label>
-                        <textarea
-                            name="content"
-                            rows={8}
-                            required
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                borderRadius: '8px',
-                                border: '1px solid var(--card-border)',
-                                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                                color: 'white'
-                            }}
-                        />
-                    </div>
-                    <button type="submit" className="nav-item active" style={{ border: 'none', cursor: 'pointer', textAlign: 'center' }}>
-                        Publish Post
-                    </button>
-                </form>
+                <h2 style={{ marginTop: 0, marginBottom: '2rem' }}>Create New Post</h2>
+                <BlogEditor action={upsertBlog} />
             </section>
 
             <section>
                 <h2>Existing Posts</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    {blogs.map((blog) => (
-                        <div key={blog.id} className="card" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                            <div>
-                                <h3 style={{ marginBottom: '0.25rem' }}>{blog.title}</h3>
-                                <p className="muted" style={{ fontSize: '0.85rem' }}>{blog.date} • /{blog.slug}</p>
+                    {blogs.map((blog: any) => (
+                        <div key={blog.id} className="card" style={{ padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                                {blog.thumbnail_url && (
+                                    <div style={{ width: '60px', height: '40px', borderRadius: '4px', overflow: 'hidden', backgroundColor: '#000', border: '1px solid var(--card-border)' }}>
+                                        <img src={blog.thumbnail_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    </div>
+                                )}
+                                <div>
+                                    <h3 style={{ margin: 0, fontSize: '1rem' }}>{blog.title}</h3>
+                                    <p className="muted" style={{ fontSize: '0.8rem', margin: 0 }}>{blog.date} • /{blog.slug}</p>
+                                </div>
                             </div>
                             <form action={async () => {
                                 'use server';

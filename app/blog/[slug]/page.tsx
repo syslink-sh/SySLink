@@ -1,7 +1,25 @@
-export const dynamic = 'force-dynamic';
 import { query } from '@/lib/db';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: BlogPostProps): Promise<Metadata> {
+    const { slug } = await params;
+    const res = await query('SELECT title, excerpt, thumbnail_url FROM blogs WHERE slug = $1', [slug]);
+    const post = res.rows[0];
+
+    if (!post) return {};
+
+    return {
+        title: post.title,
+        description: post.excerpt,
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            images: post.thumbnail_url ? [post.thumbnail_url] : [],
+        },
+    };
+}
 
 interface BlogPostProps {
     params: Promise<{ slug: string }>;
@@ -28,9 +46,25 @@ export default async function BlogPost({ params }: BlogPostProps) {
                 </div>
             </header>
 
+            {post.thumbnail_url && (
+                <div style={{ marginBottom: '3rem', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--card-border)' }}>
+                    <img src={post.thumbnail_url} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                </div>
+            )}
+
             <div className="blog-content" style={{ fontSize: '1.15rem', lineHeight: '1.8', opacity: 0.9 }}>
                 {post.content && Array.isArray(post.content) ? (
                     post.content.map((paragraph: string, i: number) => {
+                        // Handle images: (*url*)
+                        if (paragraph.startsWith('(*') && paragraph.endsWith('*)')) {
+                            const url = paragraph.slice(2, -2).trim();
+                            return (
+                                <div key={i} style={{ margin: '2.5rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--card-border)' }}>
+                                    <img src={url} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                </div>
+                            );
+                        }
+
                         const escaped = paragraph
                             .replace(/&/g, '&amp;')
                             .replace(/</g, '&lt;')
@@ -41,7 +75,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                         const formatted = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
                         return (
-                            <p key={i} dangerouslySetInnerHTML={{ __html: formatted }} />
+                            <p key={i} dangerouslySetInnerHTML={{ __html: formatted }} style={{ marginBottom: '1.5rem' }} />
                         );
                     })
                 ) : (

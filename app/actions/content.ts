@@ -32,18 +32,19 @@ export async function upsertBlog(formData: FormData) {
     const date = formData.get('date');
     const slug = formData.get('slug');
     const excerpt = formData.get('excerpt');
+    const thumbnailUrl = formData.get('thumbnail_url');
     const contentStr = formData.get('content') as string;
     const content = contentStr.split('\n').filter(p => p.trim() !== '');
 
     if (id) {
         await query(
-            'UPDATE blogs SET title = $1, date = $2, slug = $3, excerpt = $4, content = $5 WHERE id = $6',
-            [title, date, slug, excerpt, content, id]
+            'UPDATE blogs SET title = $1, date = $2, slug = $3, excerpt = $4, thumbnail_url = $5, content = $6 WHERE id = $7',
+            [title, date, slug, excerpt, thumbnailUrl, content, id]
         );
     } else {
         await query(
-            'INSERT INTO blogs (title, date, slug, excerpt, content) VALUES ($1, $2, $3, $4, $5)',
-            [title, date, slug, excerpt, content]
+            'INSERT INTO blogs (title, date, slug, excerpt, thumbnail_url, content) VALUES ($1, $2, $3, $4, $5, $6)',
+            [title, date, slug, excerpt, thumbnailUrl, content]
         );
     }
 

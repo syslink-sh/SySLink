@@ -28,6 +28,7 @@ async function up() {
         date TEXT NOT NULL,
         slug TEXT UNIQUE NOT NULL,
         excerpt TEXT,
+        thumbnail_url TEXT,
         content TEXT[]
       );
     `);

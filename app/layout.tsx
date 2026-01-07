@@ -3,8 +3,24 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
 
 export const metadata = {
-  title: 'syslink',
-  description: 'A developer who enjoys random projects',
+  title: {
+    default: 'syslink',
+    template: '%s | syslink'
+  },
+  description: 'A developer who enjoys random projects and building minimalist software.',
+  openGraph: {
+    title: 'syslink',
+    description: 'A developer who enjoys random projects and building minimalist software.',
+    url: 'https://syslink.dev',
+    siteName: 'syslink',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'syslink',
+    description: 'A developer who enjoys random projects and building minimalist software.',
+  },
 };
 
 export default function RootLayout({

@@ -1,3 +1,8 @@
+export const metadata = {
+    title: 'Skills',
+    description: 'The technical stack and tools I use to bring ideas to life.',
+};
+
 export const dynamic = 'force-dynamic';
 import { query } from '@/lib/db';
 
