@@ -36,6 +36,16 @@ export default function BlogEditor({ action }: BlogEditorProps) {
 
     return (
         <form action={action} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div>
+                <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Thumbnail URL</label>
+                <input
+                    name="thumbnail_url"
+                    type="text"
+                    placeholder="https://images.unsplash.com/..."
+                    className="admin-input"
+                />
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '1.5rem' }}>
                 <div>
                     <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Title</label>
@@ -69,16 +79,6 @@ export default function BlogEditor({ action }: BlogEditorProps) {
             </div>
 
             <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Thumbnail URL</label>
-                <input
-                    name="thumbnail_url"
-                    type="text"
-                    placeholder="https://images.unsplash.com/..."
-                    className="admin-input"
-                />
-            </div>
-
-            <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Excerpt</label>
                 <textarea
                     name="excerpt"
@@ -90,12 +90,16 @@ export default function BlogEditor({ action }: BlogEditorProps) {
             </div>
 
             <div className="writing-kit">
-                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
                     <button type="button" onClick={() => insertText('**', '**')} className="kit-btn" title="Bold">B</button>
                     <button type="button" onClick={() => insertText('_', '_')} className="kit-btn" title="Italic">I</button>
-                    <button type="button" onClick={() => insertText('[', '](url)')} className="kit-btn" title="Link">L</button>
-                    <button type="button" onClick={() => insertText('(*', '*)')} className="kit-btn" title="Image">IMG</button>
-                    <div style={{ marginLeft: 'auto', fontSize: '0.75rem', opacity: 0.5 }}>
+                    <button type="button" onClick={() => insertText('### ', '')} className="kit-btn" title="Heading 3">H3</button>
+                    <button type="button" onClick={() => insertText('- ', '')} className="kit-btn" title="Bullet List">• list</button>
+                    <button type="button" onClick={() => insertText('> ', '')} className="kit-btn" title="Quote">" quote</button>
+                    <button type="button" onClick={() => insertText('---\n', '')} className="kit-btn" title="Divider">— hr</button>
+                    <button type="button" onClick={() => insertText('[', '](url)')} className="kit-btn" title="Link">link</button>
+                    <button type="button" onClick={() => insertText('(*', '*)')} className="kit-btn" title="Image">img</button>
+                    <div style={{ marginLeft: 'auto', fontSize: '0.75rem', opacity: 0.5, alignSelf: 'center' }}>
                         {content.split(/\s+/).filter(Boolean).length} words
                     </div>
                 </div>

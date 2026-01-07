@@ -65,6 +65,34 @@ export default async function BlogPost({ params }: BlogPostProps) {
                             );
                         }
 
+                        // Handle HR: ---
+                        if (paragraph === '---') {
+                            return <hr key={i} style={{ margin: '3rem 0', border: 'none', borderTop: '1px solid var(--card-border)' }} />;
+                        }
+
+                        // Handle Headers: ###
+                        if (paragraph.startsWith('### ')) {
+                            return <h3 key={i} style={{ marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--accent)' }}>{paragraph.slice(4)}</h3>;
+                        }
+
+                        // Handle Quotes: >
+                        if (paragraph.startsWith('> ')) {
+                            return (
+                                <blockquote key={i} style={{ margin: '2rem 0', padding: '1rem 1.5rem', borderLeft: '4px solid var(--accent)', backgroundColor: 'rgba(255, 255, 255, 0.03)', fontStyle: 'italic', borderRadius: '0 8px 8px 0' }}>
+                                    {paragraph.slice(2)}
+                                </blockquote>
+                            );
+                        }
+
+                        // Handle Bullets: -
+                        if (paragraph.startsWith('- ')) {
+                            return (
+                                <li key={i} style={{ marginLeft: '1.5rem', marginBottom: '0.75rem', listStyleType: 'square' }}>
+                                    {paragraph.slice(2)}
+                                </li>
+                            );
+                        }
+
                         const escaped = paragraph
                             .replace(/&/g, '&amp;')
                             .replace(/</g, '&lt;')
@@ -72,7 +100,10 @@ export default async function BlogPost({ params }: BlogPostProps) {
                             .replace(/"/g, '&quot;')
                             .replace(/'/g, '&#039;');
 
-                        const formatted = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                        const formatted = escaped
+                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                            .replace(/_(.*?)_/g, '<em>$1</em>')
+                            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" style="color: var(--accent); text-decoration: underline;">$1</a>');
 
                         return (
                             <p key={i} dangerouslySetInnerHTML={{ __html: formatted }} style={{ marginBottom: '1.5rem' }} />
