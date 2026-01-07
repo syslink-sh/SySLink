@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { query } from '@/lib/db';
 import { upsertBlog, deleteBlog } from '@/app/actions/content';
 import Link from 'next/link';

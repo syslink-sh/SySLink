@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 
-export const config = {
-    matcher: ['/admin/:path*'],
-    runtime: 'nodejs',
-};
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Protect all /admin paths except login
