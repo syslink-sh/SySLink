@@ -33,8 +33,7 @@ export async function upsertBlog(formData: FormData) {
     const slug = formData.get('slug');
     const excerpt = formData.get('excerpt');
     const thumbnailUrl = formData.get('thumbnail_url');
-    const contentStr = formData.get('content') as string;
-    const content = contentStr.split('\n').filter(p => p.trim() !== '');
+    const content = formData.get('content') as string;
 
     if (id) {
         await query(

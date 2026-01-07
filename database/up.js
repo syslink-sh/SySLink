@@ -29,7 +29,7 @@ async function up() {
         slug TEXT UNIQUE NOT NULL,
         excerpt TEXT,
         thumbnail_url TEXT,
-        content TEXT[]
+        content TEXT
       );
     `);
     console.log('Table "blogs" ensured');

@@ -4,10 +4,19 @@ import { useState, useRef } from 'react';
 
 interface BlogEditorProps {
     action: (formData: FormData) => Promise<void>;
+    initialData?: {
+        id?: number;
+        title?: string;
+        date?: string;
+        slug?: string;
+        excerpt?: string;
+        thumbnail_url?: string;
+        content?: string;
+    };
 }
 
-export default function BlogEditor({ action }: BlogEditorProps) {
-    const [content, setContent] = useState('');
+export default function BlogEditor({ action, initialData }: BlogEditorProps) {
+    const [content, setContent] = useState(initialData?.content || '');
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const insertText = (prefix: string, suffix: string = '') => {
@@ -36,11 +45,14 @@ export default function BlogEditor({ action }: BlogEditorProps) {
 
     return (
         <form action={action} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <input type="hidden" name="id" value={initialData?.id || ''} />
+
             <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.7 }}>Thumbnail URL</label>
                 <input
                     name="thumbnail_url"
                     type="text"
+                    defaultValue={initialData?.thumbnail_url || ''}
                     placeholder="https://images.unsplash.com/..."
                     className="admin-input"
                 />
@@ -52,6 +64,7 @@ export default function BlogEditor({ action }: BlogEditorProps) {
                     <input
                         name="title"
                         type="text"
+                        defaultValue={initialData?.title || ''}
                         required
                         className="admin-input"
                     />
@@ -61,6 +74,7 @@ export default function BlogEditor({ action }: BlogEditorProps) {
                     <input
                         name="date"
                         type="text"
+                        defaultValue={initialData?.date || ''}
                         placeholder="Jan 7, 2026"
                         required
                         className="admin-input"
@@ -71,6 +85,7 @@ export default function BlogEditor({ action }: BlogEditorProps) {
                     <input
                         name="slug"
                         type="text"
+                        defaultValue={initialData?.slug || ''}
                         placeholder="post-title"
                         required
                         className="admin-input"
@@ -83,22 +98,46 @@ export default function BlogEditor({ action }: BlogEditorProps) {
                 <textarea
                     name="excerpt"
                     rows={2}
+                    defaultValue={initialData?.excerpt || ''}
                     required
                     className="admin-input"
                     style={{ resize: 'none' }}
                 />
             </div>
 
-            <div className="writing-kit">
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                    <button type="button" onClick={() => insertText('**', '**')} className="kit-btn" title="Bold">B</button>
-                    <button type="button" onClick={() => insertText('_', '_')} className="kit-btn" title="Italic">I</button>
-                    <button type="button" onClick={() => insertText('### ', '')} className="kit-btn" title="Heading 3">H3</button>
-                    <button type="button" onClick={() => insertText('- ', '')} className="kit-btn" title="Bullet List">• list</button>
-                    <button type="button" onClick={() => insertText('> ', '')} className="kit-btn" title="Quote">" quote</button>
-                    <button type="button" onClick={() => insertText('---\n', '')} className="kit-btn" title="Divider">— hr</button>
-                    <button type="button" onClick={() => insertText('[', '](url)')} className="kit-btn" title="Link">link</button>
-                    <button type="button" onClick={() => insertText('(*', '*)')} className="kit-btn" title="Image">img</button>
+            <div className="writing-kit" style={{ border: '1px solid var(--card-border)', borderRadius: '12px', padding: '1rem', backgroundColor: 'rgba(255,255,255,0.01)' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid var(--card-border)' }}>
+                    <div style={{ display: 'flex', gap: '0.25rem', borderRight: '1px solid var(--card-border)', paddingRight: '0.5rem' }}>
+                        <button type="button" onClick={() => insertText('# ', '')} className="kit-btn">H1</button>
+                        <button type="button" onClick={() => insertText('## ', '')} className="kit-btn">H2</button>
+                        <button type="button" onClick={() => insertText('### ', '')} className="kit-btn">H3</button>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.25rem', borderRight: '1px solid var(--card-border)', paddingRight: '0.5rem' }}>
+                        <button type="button" onClick={() => insertText('**', '**')} className="kit-btn" title="Bold">B</button>
+                        <button type="button" onClick={() => insertText('_', '_')} className="kit-btn" title="Italic">I</button>
+                        <button type="button" onClick={() => insertText('~~', '~~')} className="kit-btn" title="Strikethrough">S</button>
+                        <button type="button" onClick={() => insertText('`', '`')} className="kit-btn" title="Inline Code">C</button>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.25rem', borderRight: '1px solid var(--card-border)', paddingRight: '0.5rem' }}>
+                        <button type="button" onClick={() => insertText('- ', '')} className="kit-btn" title="Bullet List">•</button>
+                        <button type="button" onClick={() => insertText('1. ', '')} className="kit-btn" title="Numbered List">1.</button>
+                        <button type="button" onClick={() => insertText('- [ ] ', '')} className="kit-btn" title="Task List">☑</button>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.25rem', borderRight: '1px solid var(--card-border)', paddingRight: '0.5rem' }}>
+                        <button type="button" onClick={() => insertText('> ', '')} className="kit-btn" title="Quote">"</button>
+                        <button type="button" onClick={() => insertText('---\n', '')} className="kit-btn" title="Divider">—</button>
+                        <button type="button" onClick={() => insertText('```\n', '\n```')} className="kit-btn" title="Code Block">Code</button>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.25rem' }}>
+                        <button type="button" onClick={() => insertText('| Col | Col |\n|---|---|\n| Val | Val |', '')} className="kit-btn" title="Table">Table</button>
+                        <button type="button" onClick={() => insertText('[', '](url)')} className="kit-btn" title="Link">link</button>
+                        <button type="button" onClick={() => insertText('(*', '*)')} className="kit-btn" title="Image">img</button>
+                    </div>
+
                     <div style={{ marginLeft: 'auto', fontSize: '0.75rem', opacity: 0.5, alignSelf: 'center' }}>
                         {content.split(/\s+/).filter(Boolean).length} words
                     </div>
@@ -116,9 +155,16 @@ export default function BlogEditor({ action }: BlogEditorProps) {
                 />
             </div>
 
-            <button type="submit" className="nav-item active" style={{ border: 'none', cursor: 'pointer', textAlign: 'center', padding: '1rem' }}>
-                Publish Post
-            </button>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+                <button type="submit" className="nav-item active" style={{ flex: 1, border: 'none', cursor: 'pointer', textAlign: 'center', padding: '1rem' }}>
+                    {initialData?.id ? 'Update Post' : 'Publish Post'}
+                </button>
+                {initialData?.id && (
+                    <a href="/admin/blogs" className="nav-item" style={{ border: '1px solid var(--card-border)', padding: '1rem', textAlign: 'center' }}>
+                        Cancel Edit
+                    </a>
+                )}
+            </div>
 
             <style jsx>{`
                 .admin-input {
