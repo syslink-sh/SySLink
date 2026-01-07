@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { logout } from '@/app/actions/admin';
+import { logout } from '../actions/admin';
 
 export default function AdminDashboard() {
     return (

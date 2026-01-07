@@ -1,7 +1,7 @@
-import { query } from '@/lib/db';
-import { upsertBlog, deleteBlog } from '@/app/actions/content';
+import { query } from '../../../lib/db';
+import { upsertBlog, deleteBlog } from '../../actions/content';
 import Link from 'next/link';
-import BlogEditor from '@/components/BlogEditor';
+import BlogEditor from '../../../components/BlogEditor';
 
 export default async function AdminBlogsPage({ searchParams }: { searchParams: Promise<{ edit?: string }> }) {
     const params = await searchParams;
@@ -23,8 +23,8 @@ export default async function AdminBlogsPage({ searchParams }: { searchParams: P
                     <h1 className="title-underline" style={{ marginBottom: '1.5rem' }}>Manage Blogs</h1>
                     <p className="muted">Craft your stories and manage existing posts.</p>
                 </div>
-                <Link href="/admin" className="nav-item" style={{ fontSize: '0.9rem', border: '1px solid var(--card-border)' }}>
-                    ← Dashboard
+                <Link href="/admin" className="nav-item" style={{ fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.4rem', border: '1px solid var(--card-border)', opacity: 0.8 }}>
+                    <span style={{ fontSize: '1.2rem' }}>‹</span> dashboard
                 </Link>
             </header>
 

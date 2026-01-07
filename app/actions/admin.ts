@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { query } from '@/lib/db';
+import { query } from '../../lib/db';
 import { randomBytes } from 'crypto';
 
 export async function login(usernameInput: string, passwordInput: string) {

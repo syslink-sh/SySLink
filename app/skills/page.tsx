@@ -4,7 +4,7 @@ export const metadata = {
 };
 
 export const dynamic = 'force-dynamic';
-import { query } from '@/lib/db';
+import { query } from '../../lib/db';
 
 export default async function SkillsPage() {
     const res = await query('SELECT name, level FROM skills ORDER BY name ASC');
@@ -18,14 +18,14 @@ export default async function SkillsPage() {
                     The following are my skills and the tools I use to build projects.
                 </p>
 
-                <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}>
+                <div className="grid">
                     {skills.length > 0 ? (
                         skills.map((skill: any, index: number) => (
-                            <div key={index} className="card" style={{ padding: '1.25rem' }}>
-                                <div style={{ fontWeight: '700', color: 'var(--accent)', marginBottom: '0.25rem', fontSize: '1.1rem' }}>
+                            <div key={index} className="card" style={{ padding: '1.5rem' }}>
+                                <div style={{ fontWeight: '600', marginBottom: '0.25rem', fontSize: '1rem' }}>
                                     {skill.name}
                                 </div>
-                                <div className="muted" style={{ fontSize: '0.85rem', fontWeight: '500' }}>
+                                <div className="muted" style={{ fontSize: '0.85rem' }}>
                                     {skill.level}
                                 </div>
                             </div>

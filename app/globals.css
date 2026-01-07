@@ -87,24 +87,25 @@ a:hover {
 
 .nav {
   position: sticky;
-  top: 1.5rem;
+  top: 1rem;
   z-index: 50;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   padding: 0.5rem;
   background-color: var(--nav-bg);
   backdrop-filter: blur(8px);
   border-radius: 12px;
   border: 1px solid var(--card-border);
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
+  width: 100%;
 }
 
 .nav-item {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 8px;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--foreground);
   opacity: 0.7;
 }
@@ -166,30 +167,69 @@ a:hover {
   align-items: center;
 }
 
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2.5rem;
-  }
-
+/* Responsive Design */
+@media (max-width: 1024px) {
   .container {
-    padding: 6rem 1.5rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 3rem 1.5rem;
   }
 
   .nav {
-    width: 90%;
-    justify-content: center;
+    top: 0.5rem;
+    padding: 0.4rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar Chrome/Safari */
+  }
+
+  .nav-item {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
   }
 
   .footer {
+    margin-top: 6rem;
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
   }
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {

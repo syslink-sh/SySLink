@@ -4,7 +4,7 @@ export const metadata = {
 };
 
 export const dynamic = 'force-dynamic';
-import { query } from '@/lib/db';
+import { query } from '../../lib/db';
 import Link from 'next/link';
 
 export default async function BlogPage() {

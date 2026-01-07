@@ -1,26 +1,26 @@
 import './globals.css';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import { ThemeProvider } from '../components/ThemeProvider';
 import Link from 'next/link';
-import ThemeToggle from '@/components/ThemeToggle';
+import ThemeToggle from '../components/ThemeToggle';
 
 export const metadata = {
   title: {
-    default: 'SySLink',
-    template: '%s | SySLink'
+    default: 'syslink',
+    template: '%s | syslink'
   },
-  description: 'Digital Architect & Systems Engineer building robust, minimalist software solutions.',
+  description: 'developer building small, practical software.',
   openGraph: {
-    title: 'SySLink',
-    description: 'Digital Architect & Systems Engineer building robust, minimalist software solutions.',
+    title: 'syslink',
+    description: 'developer building small, practical software.',
     url: 'https://syslink.dev',
-    siteName: 'SySLink',
+    siteName: 'syslink',
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SySLink',
-    description: 'Digital Architect & Systems Engineer building robust, minimalist software solutions.',
+    title: 'syslink',
+    description: 'developer building small, practical software.',
   },
 };
 
@@ -39,8 +39,10 @@ export default function RootLayout({
               <Link href="/projects" className="nav-item">projects</Link>
               <Link href="/skills" className="nav-item">skills</Link>
               <Link href="/blog" className="nav-item">blog</Link>
-              <div style={{ marginLeft: '1rem', borderLeft: '1px solid var(--card-border)', paddingLeft: '1rem', display: 'flex' }}>
-                <ThemeToggle />
+              <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+                <div style={{ borderLeft: '1px solid var(--card-border)', paddingLeft: '1rem', display: 'flex' }}>
+                  <ThemeToggle />
+                </div>
               </div>
             </nav>
             <main>{children}</main>

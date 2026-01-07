@@ -1,5 +1,5 @@
-import ProjectCard from '@/components/ProjectCard';
-import { query } from '@/lib/db';
+import ProjectCard from '../../components/ProjectCard';
+import { query } from '../../lib/db';
 
 export const metadata = {
     title: 'Projects',

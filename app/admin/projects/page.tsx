@@ -1,5 +1,5 @@
-import { query } from '@/lib/db';
-import { upsertProject, deleteProject } from '@/app/actions/content';
+import { query } from '../../../lib/db';
+import { upsertProject, deleteProject } from '../../actions/content';
 import Link from 'next/link';
 
 export default async function AdminProjectsPage({ searchParams }: { searchParams: Promise<{ edit?: string }> }) {
@@ -22,8 +22,8 @@ export default async function AdminProjectsPage({ searchParams }: { searchParams
                     <h1 className="title-underline" style={{ marginBottom: '1.5rem' }}>Manage Projects</h1>
                     <p className="muted">List your works and deployments.</p>
                 </div>
-                <Link href="/admin" className="nav-item" style={{ fontSize: '0.9rem', border: '1px solid var(--card-border)' }}>
-                    ← Dashboard
+                <Link href="/admin" className="nav-item" style={{ fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', border: '1px solid var(--card-border)', opacity: 0.8 }}>
+                    <span style={{ fontSize: '1.2rem' }}>‹</span> dashboard
                 </Link>
             </header>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { login } from '@/app/actions/admin';
+import { login } from '../../actions/admin';
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');

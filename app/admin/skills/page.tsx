@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
-import { query } from '@/lib/db';
-import { upsertSkill, deleteSkill } from '@/app/actions/content';
+import { query } from '../../../lib/db';
+import { upsertSkill, deleteSkill } from '../../actions/content';
 import Link from 'next/link';
 
 export default async function AdminSkillsPage() {
@@ -10,7 +10,9 @@ export default async function AdminSkillsPage() {
     return (
         <div className="container">
             <header style={{ marginBottom: '4rem' }}>
-                <Link href="/admin" className="muted">← Back to Dashboard</Link>
+                <Link href="/admin" className="nav-item" style={{ fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', border: '1px solid var(--card-border)', opacity: 0.8 }}>
+                    <span style={{ fontSize: '1.2rem' }}>‹</span> dashboard
+                </Link>
                 <h1 className="title-underline" style={{ marginTop: '1rem' }}>Manage Skills</h1>
             </header>
 

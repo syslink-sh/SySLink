@@ -1,4 +1,4 @@
-import { query } from '@/lib/db';
+import { query } from '../../../lib/db';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
